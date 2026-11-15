@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareCircle AI - Mock App</title>
+    <style>
+        body { 
+            font-family: system-ui, -apple-system, sans-serif; 
+            padding: 20px; 
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .hidden { display: none; }
+        .section { 
+            border: 1px solid #ccc; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            border-radius: 8px;
+        }
+        .input-group { margin-bottom: 10px; }
+        input { 
+            padding: 8px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 8px 12px;
+            background-color: #101d32;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #1a2f50; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <div id="login-screen">
+        <h2>CareCircle Login</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label style="display:block; margin-bottom:5px;">Email:</label>
+                <input type="email" id="email" required style="width: 100%; box-sizing: border-box;">
+            </div>
+            <div class="input-group">
+                <label style="display:block; margin-bottom:5px;">Password:</label>
+                <input type="password" id="password" required style="width: 100%; box-sizing: border-box;">
+            </div>
+            <button type="submit" style="width: 100%;">Login</button>
+        </form>
+    </div>
+
+    <div id="dashboard-screen" class="hidden">
+        <h2>CareCircle Dashboard</h2>
+        
+        <div class="section">
+            <h3>Medicines</h3>
+            <ul id="medicines-list"></ul>
+            <input type="text" id="new-medicine" placeholder="New medicine name">
+            <button id="add-medicine">Add Medicine</button>
+        </div>
+
+        <div class="section">
+            <h3>Members</h3>
+            <ul id="members-list"></ul>
+            <input type="text" id="new-member" placeholder="New member name">
+            <button id="add-member">Add Member</button>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let medicines = [];
+        let members = [];
+
+        // DOM Elements
+        const loginScreen = document.getElementById('login-screen');
+        const dashboardScreen = document.getElementById('dashboard-screen');
+        const loginForm = document.getElementById('login-form');
+        
+        const medicinesList = document.getElementById('medicines-list');
+        const newMedicineInput = document.getElementById('new-medicine');
+        const addMedicineBtn = document.getElementById('add-medicine');
+        
+        const membersList = document.getElementById('members-list');
+        const newMemberInput = document.getElementById('new-member');
+        const addMemberBtn = document.getElementById('add-member');
+
+        // Login logic (Bypassed)
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            loginScreen.classList.add('hidden');
+            dashboardScreen.classList.remove('hidden');
+        });
+
+        // Medicine logic
+        function renderMedicines() {
+            medicinesList.innerHTML = medicines.map(m => `<li>${m}</li>`).join('');
+        }
+        addMedicineBtn.addEventListener('click', () => {
+            const val = newMedicineInput.value.trim();
+            if (val) {
+                medicines.push(val);
+                newMedicineInput.value = '';
+                renderMedicines();
+            }
+        });
+
+        // Member logic
+        function renderMembers() {
+            membersList.innerHTML = members.map(m => `<li>${m}</li>`).join('');
+        }
+        addMemberBtn.addEventListener('click', () => {
+            const val = newMemberInput.value.trim();
+            if (val) {
+                members.push(val);
+                newMemberInput.value = '';
+                renderMembers();
+            }
+        });
+    </script>
+</body>
+</html>
